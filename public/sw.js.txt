@@ -1,35 +1,25 @@
-// public/sw.js
-
 self.addEventListener("install", (event) => {
+  console.log("Service Worker: Installed");
+
   event.waitUntil(
-    caches.open("resume-cache-v1").then((cache) => {
+    caches.open("v1").then((cache) => {
       return cache.addAll([
-        "/",               // homepage
-        "/favicon.ico",    // icon
-        "/manifest.json",  // manifest
+        "/",
+        "/favicon.ico",
+        "/manifest.json",
       ]);
     })
   );
-  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.map((key) => {
-        if (key !== "resume-cache-v1") {
-          return caches.delete(key);
-        }
-      }))
-    )
-  );
-  self.clients.claim();
+  console.log("Service Worker: Activated");
 });
 
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
     })
   );
 });
