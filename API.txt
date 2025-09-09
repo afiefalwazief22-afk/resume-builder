@@ -1,0 +1,29 @@
+import { NextResponse } from "next/server";
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // letak dalam .env
+});
+
+export async function POST(req) {
+  const body = await req.json();
+  const { name, email, skills, experience } = body;
+
+  const prompt = `
+  Buatkan resume yang ringkas, kemas, dan modern dalam format teks.
+  Nama: ${name}
+  Email: ${email}
+  Skills: ${skills}
+  Experience: ${experience}
+  Tulis dalam English professional tone, ikut format resume.
+  `;
+
+  const aiRes = await client.chat.completions.create({
+    model: "gpt-4o-mini",
+    messages: [{ role: "user", content: prompt }],
+  });
+
+  const generatedText = aiRes.choices[0].message.content;
+
+  return NextResponse.json({ success: true, resume: generatedText });
+}
