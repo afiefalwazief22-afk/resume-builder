@@ -1,7 +1,3 @@
-import { saveAs } from "file-saver";
-import { Document, Packer, Paragraph } from "docx";
-
-// app/api/generate/route.js
 import OpenAI from "openai";
 
 export async function POST(req) {
@@ -15,6 +11,7 @@ export async function POST(req) {
       );
     }
 
+    // 🚀 Tarik dari .env.local
     const client = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     });
