@@ -1,40 +1,24 @@
-export const metadata = {
+// app/layout.tsx
+import "./globals.css";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
   title: "Resume Builder",
-  description: "AI Resume & Cover Letter Generator",
+  description: "Generate resumes and cover letters instantly",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <head>
         <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#ffffff" />
       </head>
-      <body>{children}</body> export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <head>
-        <link rel="manifest" href="/manifest.json" />
-      </head>
-      <body>
-        {children}
-
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                  navigator.serviceWorker.register('/sw.js')
-                    .then(reg => console.log('Service Worker registered:', reg))
-                    .catch(err => console.log('Service Worker error:', err));
-                });
-              }
-            `,
-          }}
-        />
-      </body>
-    </html>
-  );
-}
+<body>{children}</body> export default function RootLayout({ children }) {
 
     </html>
   );
